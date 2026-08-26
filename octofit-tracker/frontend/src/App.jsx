@@ -1,121 +1,53 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
+import { NavLink, Route, Routes } from 'react-router-dom'
+import Activities from './components/Activities.jsx'
+import Leaderboard from './components/Leaderboard.jsx'
+import Teams from './components/Teams.jsx'
+import Users from './components/Users.jsx'
+import Workouts from './components/Workouts.jsx'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+const navigation = [
+  { to: '/', label: 'Overview', icon: '◈', end: true },
+  { to: '/activities', label: 'Activities', icon: '↗' },
+  { to: '/leaderboard', label: 'Leaderboard', icon: '✦' },
+  { to: '/teams', label: 'Teams', icon: '◎' },
+  { to: '/users', label: 'Members', icon: '♙' },
+  { to: '/workouts', label: 'Workouts', icon: '▣' },
+]
 
+function Overview() {
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="overview-page">
+      <div className="page-heading">
+        <div><p className="eyebrow">Wednesday, August 26</p><h1>Make today count.</h1><p className="lede">A quick read on the OctoFit community.</p></div>
+        <NavLink className="primary-action" to="/activities">Log activity <span>+</span></NavLink>
+      </div>
+      <div className="overview-grid">
+        <div className="feature-panel"><span className="feature-kicker">Weekly focus</span><h2>Small wins build<br />strong habits.</h2><p>Show up for yourself, then bring your team along.</p><NavLink to="/workouts" className="text-link">Find a workout <span>→</span></NavLink></div>
+        <div className="stat-panel"><span className="stat-label">Community activities</span><strong>06</strong><span className="stat-note">Ready to explore</span></div>
+        <div className="stat-panel warm"><span className="stat-label">Active teams</span><strong>02</strong><span className="stat-note">Competing this week</span></div>
+      </div>
+      <div className="section-intro"><div><p className="eyebrow">Explore</p><h2>What's moving</h2></div><NavLink to="/leaderboard" className="text-link">View leaderboard <span>→</span></NavLink></div>
+      <div className="quick-links">
+        <NavLink to="/activities"><span className="quick-icon mint">↗</span><span><b>Activity feed</b><small>See the latest movement</small></span><span>→</span></NavLink>
+        <NavLink to="/teams"><span className="quick-icon coral">◎</span><span><b>Team energy</b><small>Find your people</small></span><span>→</span></NavLink>
+        <NavLink to="/workouts"><span className="quick-icon yellow">▣</span><span><b>Workout library</b><small>Pick your next challenge</small></span><span>→</span></NavLink>
+      </div>
+    </div>
+  )
+}
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+function App() {
+  return (
+    <div className="app-shell">
+      <aside className="sidebar">
+        <NavLink to="/" className="brand"><img src="/octofitapp-small.png" alt="" /><span>octofit<em>tracker</em></span></NavLink>
+        <p className="nav-label">Workspace</p>
+        <nav className="main-nav" aria-label="Main navigation">{navigation.map((item) => <NavLink key={item.to} to={item.to} end={item.end}><span className="nav-icon">{item.icon}</span>{item.label}</NavLink>)}</nav>
+        <div className="sidebar-footer"><span className="pulse-dot" />API connected<div className="profile-chip"><span>AR</span><div><b>Alex Rivera</b><small>Member</small></div></div></div>
+      </aside>
+      <main className="content"><Routes><Route path="/" element={<Overview />} /><Route path="/activities" element={<Activities />} /><Route path="/leaderboard" element={<Leaderboard />} /><Route path="/teams" element={<Teams />} /><Route path="/users" element={<Users />} /><Route path="/workouts" element={<Workouts />} /></Routes></main>
+    </div>
   )
 }
 
